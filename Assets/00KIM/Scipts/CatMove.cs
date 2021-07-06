@@ -29,7 +29,7 @@ public class CatMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (save_time > 5)
+        if (save_time > 8)
         {
             axis_x = Random.value;
             axis_y = 0;
@@ -42,6 +42,8 @@ public class CatMove : MonoBehaviour
         {
             save_time += Time.deltaTime;
         }
+        
+
 
 
 
@@ -53,6 +55,7 @@ public class CatMove : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
 
+
         int new_raotaion = Random.Range(0, 91);
         transform.rotation = new Quaternion(0, new_raotaion, 0, 1);
         axis_x *= -1;
@@ -60,6 +63,8 @@ public class CatMove : MonoBehaviour
         axis_z *= -1;
         move = new Vector3(axis_x, axis_y, axis_z);
         move.Normalize();
+
+
 
     }
 
