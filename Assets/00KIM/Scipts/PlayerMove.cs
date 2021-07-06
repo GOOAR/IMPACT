@@ -13,6 +13,9 @@ public class PlayerMove : MonoBehaviour
 
     public float xRotate = 0.0f;
 
+    public Camera cam; //메인카메라
+
+
 
     void Start()
     {
@@ -28,8 +31,8 @@ public class PlayerMove : MonoBehaviour
         float jum = Input.GetAxis("Jump");
 
 
-        //float turning_X = Input.GetAxis("Mouse X");
-        //float turning_Y = Input.GetAxis("Mouse Y");
+        float turning_X = Input.GetAxis("Mouse X");
+        float turning_Y = Input.GetAxis("Mouse Y");
 
 
 
@@ -44,8 +47,9 @@ public class PlayerMove : MonoBehaviour
 
         transform.localPosition += dir * movespeed * Time.deltaTime;
         transform.localPosition += uping * reverse_gravity * Time.deltaTime;
-        
-        MouseMoveFuction();
+
+        //MouseMoveFuction();
+        MoveLookAt();
 
         //transform.position += dir * movespeed * Time.deltaTime;
         //transform.position += uping * reverse_gravity * Time.deltaTime;
@@ -67,6 +71,30 @@ public class PlayerMove : MonoBehaviour
         //xRotate = Mathf.Clamp(xRotate + xRotateSize, -45, 80);
 
         // 카메라 회전량을 카메라에 반영(X, Y축만 회전)
+        transform.eulerAngles = new Vector3(0, yRotate, 0);
+
+    }
+    void MoveLookAt()
+    {
+        float yRotateSize = Input.GetAxis("Mouse X") * turning_speed;
+        // 현재 y축 회전값에 더한 새로운 회전각도 계산
+        float yRotate = transform.eulerAngles.y + yRotateSize;
+        //메인카메라가 바라보는 방향입니다.
+
+
+
+        Vector3 dir = cam.transform.localRotation * Vector3.forward;
+        //카메라가 바라보는 방향으로 팩맨도 바라보게 합니다.
+        transform.localRotation = cam.transform.localRotation;
+        //팩맨의 Rotation.x값을 freeze해놓았지만 움직여서 따로 Rotation값을 0으로 세팅해주었습니다.
+        transform.localRotation = new Quaternion(0, transform.localRotation.y, 0, transform.localRotation.w);
+        //바라보는 시점 방향으로 이동합니다.
+        gameObject.transform.Translate(dir * 0.1f * Time.deltaTime);
+
+
+
+
+
         transform.eulerAngles = new Vector3(0, yRotate, 0);
 
     }
