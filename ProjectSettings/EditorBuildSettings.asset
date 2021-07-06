@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/00GOH/Scenes/ModernOffice_Interior_SampleLayout.unity
+    guid: 2194fe559202da244a6cc0ad8cbc636d
   m_configObjects: {}
